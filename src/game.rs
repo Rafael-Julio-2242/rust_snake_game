@@ -1,5 +1,5 @@
 use piston_window::*;
-use piston_window::types::{Color, Width};
+use piston_window::types::{Color};
 
 use rand::{thread_rng, Rng};
 
@@ -9,7 +9,7 @@ use crate::draw::{draw_block, draw_rectangle};
 
 const FOOD_COLOR: Color = [ 0.80, 0.00, 0.00, 1.0 ];
 const BORDER_COLOR: Color = [ 0.00, 0.00, 0.00, 1.0 ];
-const GAMEOVER_COLOR: Color = [ 0.80, 0.00, 0.00, 0.5 ];
+const GAMEOVER_COLOR: Color = [ 0.90, 0.00, 0.00, 0.5 ];
 
 
 const MOVING_PERIOD: f64 = 0.1;
@@ -67,18 +67,17 @@ impl Game {
     pub fn draw(&self, con: &Context, g: &mut G2d) {
         self.snake.draw(con, g);
 
-        if self.food_exists {
+        if self.food_exists{
             draw_block(FOOD_COLOR, self.food_x, self.food_y, con, g);
         }
 
         draw_rectangle(BORDER_COLOR, 0, 0, self.width, 1, con, g);
-        draw_rectangle(BORDER_COLOR, 0, 0, self.height - 1, self.width, con, g);
+        draw_rectangle(BORDER_COLOR, 0, self.height -1, self.width, 1, con, g);
         draw_rectangle(BORDER_COLOR, 0, 0, 1, self.height, con, g);
-        draw_rectangle(BORDER_COLOR, self.width - 1, 0, self.height, 1, con, g);
+        draw_rectangle(BORDER_COLOR, self.width -1, 0, 1, self.height, con, g);
 
-
-        if self.game_over {
-            draw_rectangle(GAMEOVER_COLOR, 0, 0, self.width, self.height, con, g)
+        if self.game_over{
+            draw_rectangle(GAMEOVER_COLOR, 0, 0, self.width, self.height, con, g);
         }
 
     }
